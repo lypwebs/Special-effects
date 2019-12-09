@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>坦克游戏</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				overflow: hidden;
+				background-image: url(img/bg.jpg);
+				background-size: 100%;
+			}
+
+			.tank {
+				cursor: pointer;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			.f1 {
+				width: 400px;
+				height: 200px;
+				background: #ccc;
+				position: absolute;
+				top: 0;
+				left: 700px;
+				background: url(img/f1.png);
+				background-size: cover;
+			}
+
+			.f2 {
+				width: 400px;
+				height: 200px;
+				background: #ccc;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				background: url(img/f2.png);
+				background-size: cover;
+			}
+
+			.f3 {
+				width: 400px;
+				height: 200px;
+				background: #ccc;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				background: url(img/f3.png);
+				background-size: cover;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="img/top.png" class="tank" width="200">
+		<div class="f1">
+
+		</div>
+		<div class="f2">
+
+		</div>
+		<div class="f3">
+
+		</div>
+	</body>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		//键盘游戏特效实战
+		// 1.css3布局
+		// 2.jquery特效开发
+		// 3.游戏规则
+		// 4.游戏产品的调试
+		ys = 0;
+		yv = 10;
+		xs = 0;
+		xv = 10;
+		$(window).keydown(function(event) {
+			var ev = event.keyCode;
+			switch (ev) {
+				case 37:
+					//左
+					xs-=xv;
+					$('.tank').attr('src','img/left.png')
+					$('.tank').css("left",xs+'px')
+					break;
+				case 38:
+					//上
+					ys-=yv;
+					$('.tank').attr('src','img/top.png')
+					$('.tank').css("top",ys+'px')
+					break;
+				case 39:
+					//右
+					xs+=xv;
+					$('.tank').attr('src','img/right.png')
+					$('.tank').css("left",xs+'px')
+					break;
+				case 40:
+					// 下
+					ys+=yv;
+					$('.tank').attr('src','img/bottom.png')
+					$('.tank').css("top",ys+'px')
+					break;
+				default:
+					break;
+			}
+
+		})
+	</script>
+</html>
