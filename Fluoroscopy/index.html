@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>透视镜</title>
+		<style type="text/css">
+			#overly {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-image: url(img/girl.jpg);
+				background-size: cover;
+			}
+			#excluder {
+				position: absolute;
+				width: 210px;
+				height: 210px;
+				border-radius: 100%;
+				background-image: url(img/girl.jpg);
+				background-size: cover;
+				background-attachment: fixed;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="overly"></div>
+		<div id="excluder"></div>
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			var excluder = document.getElementById("excluder");
+			document.body.onmousemove = function(ev) {
+				var x = ev.layerX - 105;
+				var y = ev.layerY - 105;
+				excluder.style.cssText = "transform: translate(" + x + "px," + y + "px);background-position:" + ((x > 0) ? "-" :"") + Math.abs(x) + "px  "+((y>0)?"-":"")+Math.abs(y)+"px"
+			}
+		}
+	</script>
+</html>
