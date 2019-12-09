@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>放大镜特效</title>
+	    <link rel="stylesheet" type="text/css" href="style.css"/>
+	</head>
+	<body>
+		<div id="box">
+			<div id="small">
+				<!-- 小图区 -->
+				<img src="img/428_428_a_web1575606189470.jpg" width="100%">
+				<div id="mask">
+					<!-- 遮罩层 -->
+
+				</div>
+			</div>
+			<div id="big">
+				<!-- 大图区 -->
+				<img id="bigImg" src="img/800_800_a_web1575606189470.jpg" >
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		function $(id) {
+			return document.getElementById(id)
+		}
+
+		var box = $('box');
+		var small = $('small');
+		var mask = $('mask')
+		var big = $('big');
+		var bigImg = $('bigImg');
+
+		//鼠标移入到小图区域 mask和big显示
+		small.onmouseover = function() {
+			mask.style.display = "block"
+			big.style.display = "block"
+		}
+
+		//鼠标移出到小图区域 mask和big隐藏
+		small.onmouseout = function() {
+			mask.style.display = "none"
+			big.style.display = "none"
+		}
+
+		//鼠标在小图区域移动  让mask移动
+		small.onmousemove = function(e) {
+			var e = e || window.event
+			var x = e.pageX - box.offsetLeft - mask.offsetWidth / 2
+			var y = e.pageY - box.offsetTop - mask.offsetHeight / 2
+
+			//得到mask位置最大值   
+			var maxX = box.clientWidth - mask.clientWidth; //client不包含边框
+			var maxY = box.clientHeight - mask.clientHeight;
+			
+			x = x < 0 ? 0 : (x > maxX ? maxX : x)
+			y = y < 0 ? 0 : (y > maxY ? maxY : y)
+			
+			mask.style.left = x + 'px'
+			mask.style.top = y + 'px'
+            
+			//小图片宽度:大图片宽度 = x:大图片位置
+			var bigImgLeft = -x*bigImg.offsetWidth/small.offsetWidth;
+			var bigImgTop = -y*bigImg.offsetHeight/small.offsetHeight;
+			bigImg.style.left = bigImgLeft + 'px'
+			bigImg.style.top = bigImgTop + 'px'
+		}
+	</script>
+</html>
