@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>垂直瀑布流</title>
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+		</script>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			.box {
+				width: 440px;
+				float: left;
+				padding: 10px;
+				
+			}
+
+			.box img {
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 父盒子 -->
+		<div id="main">
+			<!-- 单个盒子 -->
+			<div class="box"><img src="image\0.jpg"></div>
+			<div class="box"><img src="image\1.jpg"></div>
+			<div class="box"><img src="image\2.jpg"></div>
+			<div class="box"><img src="image\3.jpg"></div>
+			<div class="box"><img src="image\4.jpg"></div>
+			<div class="box"><img src="image\5.jpg"></div>
+			<div class="box"><img src="image\6.jpg"></div>
+			<div class="box"><img src="image\7.jpg"></div>
+			<div class="box"><img src="image\8.jpg"></div>
+			<div class="box"><img src="image\9.jpg"></div>
+			<div class="box"><img src="image\10.jpg"></div>
+			<div class="box"><img src="image\11.jpg"></div>
+			<div class="box"><img src="image\12.jpg"></div>
+			<div class="box"><img src="image\13.jpg"></div>
+			<div class="box"><img src="image\14.jpg"></div>
+			<div class="box"><img src="image\15.jpg"></div>
+			<div class="box"><img src="image\16.jpg"></div>
+			<div class="box"><img src="image\17.jpg"></div>
+			<div class="box"><img src="image\18.jpg"></div>
+			<div class="box"><img src="image\19.jpg"></div>
+			<div class="box"><img src="image\20.jpg"></div>
+			<div class="box"><img src="image\21.jpg"></div>
+			<div class="box"><img src="image\22.jpg"></div>
+			<div class="box"><img src="image\23.jpg"></div>
+		</div>
+	</body>
+	<script>
+		// $(document).ready(function() { //页面结构加载完成
+		// });
+		$(window).on("load", function() { //页面图片 内 结构加完之后 防止当前图片还没拿到就已经执行了js代码
+			waterFall()
+		})
+		function waterFall() {
+			var box = $('.box');// 求出图片的宽度
+			var boxWidth = box.outerWidth();
+			var screenWidth = $(window).width();//求出屏幕的宽度
+			var cols = parseInt(screenWidth / boxWidth);//求列数
+			var heightArr = [];
+			$.each(box, function(index, item) { //index索引  item当前元素
+				var boxHeight = $(item).outerHeight(); //每张图片的高度
+				if (index < cols) { //判断是否第一行
+					heightArr[index] = boxHeight //把每张图片的高度存在数组中
+				} else {
+					var minBoxHeight = Math.min(...heightArr);//最小高度  Math.min.apply(null,heightArr);es5对应的处理方式
+					var minBoxIndex = $.inArray(minBoxHeight, heightArr); //$.inArray(value, arr)用于数组中某一项值的索引
+					$(item).css({
+						position: 'absolute',
+						top: minBoxHeight + 'px',
+						left: minBoxIndex * boxWidth + 'px'
+					})
+					heightArr[minBoxIndex] += boxHeight;//更新最小高度的值
+				}
+				var obxheight = Math.min(...heightArr)
+			})
+		}
+		
+	</script>
+	
+</html>
