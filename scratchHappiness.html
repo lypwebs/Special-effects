@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>canvas刮奖游戏</title>
+		<style type="text/css">
+			.prize{
+				position: absolute;
+				top: 60px;
+				left: 110px;
+				font-size: 25px;
+				color: #FF0000;
+				font-weight: bold;
+				z-index: -10;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="300" height="150">
+		</canvas>
+		<div class="prize"></div>
+	</body>
+	<script type="text/javascript">
+		window.onload = function(){
+			//获取画布元素
+			var canvas = document.getElementById('canvas')
+			//获取绘图对象
+			var ctx = canvas.getContext("2d")
+			ctx.rect(0,0,300,150)
+			ctx.fillStyle = "#ccc"
+			ctx.fill()//执行填充
+			canvas.onmousedown = function (e){
+				canvas.onmousemove = function(e){
+					ctx.clearRect(e.clientX,e.clientY,20,20)  //清除
+					ctx.stroke()
+				}
+			}
+			canvas.onmouseup = function (e){
+				canvas.onmousemove = null
+			}
+			//中奖信息
+			var arr = ["一个亿","海景别墅","500元话费","现金1万"]
+			var prize = document.querySelector('.prize')
+			var i = Math.floor(Math.random()*arr.length);
+			prize.innerHTML = arr[i]
+		}
+	</script>
+</html>
